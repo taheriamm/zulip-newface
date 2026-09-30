@@ -31,8 +31,9 @@ export function restore_views_state(): void {
     }
 
     const views_state = ls.get(ls_key);
-    // Expanded state is default, so we only need to toggle if the state is condensed.
-    if (views_state === STATES.CONDENSED) {
+    // Custom: condensed is the default. Only stay expanded if the user
+    // explicitly expanded the section before.
+    if (views_state !== STATES.EXPANDED) {
         toggle_condensed_navigation_area();
     }
 }

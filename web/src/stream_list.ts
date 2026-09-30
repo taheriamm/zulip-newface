@@ -658,8 +658,16 @@ function restore_collapsed_sections_state(): void {
     // sections we last saved actually exist, because we're running
     // before the stream_list_sort code path has determined that.
     // Validation happens in save_collapsed_sections_state() instead.
-    const collapsed_array = collapsed_sections_ls_schema.parse(ls.get(collapsed_sections_ls_key));
+    const saved_state = ls.get(collapsed_sections_ls_key);
     collapsed_sections.clear();
+    if (saved_state === undefined) {
+        // Custom: with no saved state, start with every channel section collapsed.
+        for (const section_id of get_valid_section_ids()) {
+            collapsed_sections.add(section_id);
+        }
+        return;
+    }
+    const collapsed_array = collapsed_sections_ls_schema.parse(saved_state);
     for (const section_id of collapsed_array) {
         collapsed_sections.add(section_id);
     }
