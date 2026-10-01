@@ -26,7 +26,6 @@ import * as timerender from "./timerender.ts";
 import * as ui_util from "./ui_util.ts";
 import * as unread from "./unread.ts";
 import * as unread_ops from "./unread_ops.ts";
-import {user_settings} from "./user_settings.ts";
 import * as user_topics from "./user_topics.ts";
 import * as util from "./util.ts";
 
@@ -174,12 +173,8 @@ export function toggle_organization_profile_incomplete_banner(): void {
 }
 
 export function should_offer_to_update_timezone(): boolean {
-    // This offer is only for logged-in users with the setting enabled.
-    return (
-        !page_params.is_spectator &&
-        user_settings.web_suggest_update_timezone &&
-        !timerender.is_browser_timezone_same_as(user_settings.timezone)
-    );
+    // Custom: never offer to update the time zone; everyone uses Asia/Tehran.
+    return false;
 }
 
 const DESKTOP_NOTIFICATIONS_BANNER: AlertBanner = {

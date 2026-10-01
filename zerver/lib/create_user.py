@@ -132,7 +132,7 @@ def create_user_profile(
         is_mirror_dummy=is_mirror_dummy,
         is_deleted=is_deleted,
         tos_version=tos_version,
-        timezone=timezone,
+        timezone=timezone or "Asia/Tehran",
         default_language=default_language,
         delivery_email=email,
         email_address_visibility=email_address_visibility,
