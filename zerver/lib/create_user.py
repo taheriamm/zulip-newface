@@ -132,7 +132,7 @@ def create_user_profile(
         is_mirror_dummy=is_mirror_dummy,
         is_deleted=is_deleted,
         tos_version=tos_version,
-        timezone=timezone or "Asia/Tehran",
+        timezone="Asia/Tehran",
         default_language=default_language,
         delivery_email=email,
         email_address_visibility=email_address_visibility,
@@ -205,7 +205,8 @@ def create_user(
     )
     if avatar_source is None:
         avatar_source = realm.default_avatar_source
-    user_profile.avatar_source = avatar_source
+    # Custom: everybody starts with the static default avatar.
+    user_profile.avatar_source = UserProfile.AVATAR_FROM_GRAVATAR
     user_profile.timezone = timezone
     user_profile.default_sending_stream = default_sending_stream
     user_profile.default_events_register_stream = default_events_register_stream

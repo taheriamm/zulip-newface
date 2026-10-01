@@ -76,7 +76,10 @@ ALL_ONBOARDING_STEPS: list[OneTimeNotice | OneTimeAction] = ONE_TIME_NOTICES + O
 def get_next_onboarding_steps(user: UserProfile) -> list[APIOnboardingStep]:
     # If a Zulip server has disabled the tutorial, never send any
     # onboarding steps.
-    if not settings.TUTORIAL_ENABLED:
+    # Custom: the tutorial (welcome video, jump to the Welcome Bot
+    # conversation, intro modals) is permanently disabled.
+    return []
+    if not settings.TUTORIAL_ENABLED:  # pragma: no cover
         return []
 
     seen_onboarding_steps: list[str] = list(
